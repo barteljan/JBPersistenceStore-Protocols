@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JBPersistenceStore-Protocols_Example', :exclusive => true do
+  pod 'JBPersistenceStore-Protocols', :path => '../'
+end
+
+target 'JBPersistenceStore-Protocols_Tests', :exclusive => true do
+  pod 'JBPersistenceStore-Protocols', :path => '../'
+
+  
+end
