@@ -1,42 +1,20 @@
-#
-# Be sure to run `pod lib lint JBPersistenceStore-Protocols.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "JBPersistenceStore-Protocols"
   s.version          = "0.1.0"
-  s.summary          = "A short description of JBPersistenceStore-Protocols."
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = "Protocols for a persistence store used as a facade for your favorite persistence library"
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Protocols for a persistence store used as a facade for your favorite persistence library
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/JBPersistenceStore-Protocols"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/barteljan/JBPersistenceStore-Protocols"
   s.license          = 'MIT'
   s.author           = { "Jan Bartel" => "jan.bartel@atino.net" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/JBPersistenceStore-Protocols.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/barteljan/JBPersistenceStore-Protocols.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/janbartel'
 
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'JBPersistenceStore-Protocols/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'JBPersistenceStore-Protocols' => ['JBPersistenceStore-Protocols/Assets/*.png']
-  # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
