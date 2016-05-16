@@ -16,6 +16,8 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: NSCoding>(item: T) -> T
     
+    func persist(item: protocol<CanBePersistedProtocol,NSCoding>) -> protocol<CanBePersistedProtocol,NSCoding>
+    
     func persist<
         T where
         T: CanBePersistedProtocol,
@@ -23,18 +25,21 @@ public protocol PersistenceStoreProtocol{
         T.Coder: NSCoding,
         T.Coder.ValueType == T>(item: T) -> T
     
+    func delete(identifier: String, type: CanBePersistedProtocol.Type)
+    
+    func delete(item: CanBePersistedProtocol) -> CanBePersistedProtocol
+    
     func get<
         T where
         T: CanBePersistedProtocol,
-        T: NSCoding>(key: String) -> T?
-    
+        T: NSCoding>(identifier: String) -> T?
     
     func get<
         T where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(key: String) -> T?
+        T.Coder.ValueType == T>(identifier: String) -> T?
     
     
     func exists<T where
@@ -51,14 +56,14 @@ public protocol PersistenceStoreProtocol{
     
     func exists<T where
         T: CanBePersistedProtocol,
-        T: NSCoding>(key : String,type : T.Type) -> Bool
+        T: NSCoding>(identifier : String,type : T.Type) -> Bool
     
     
     func exists<T where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(key : String,type : T.Type) -> Bool
+        T.Coder.ValueType == T>(identifier : String,type : T.Type) -> Bool
     
     
     func filter <T where
@@ -142,5 +147,6 @@ public protocol PersistenceStoreProtocol{
     func getAll< T where
         T: CanBePersistedProtocol,
         T: NSCoding>(viewName:String,groupName:String)->[T]
+    
     
 }
