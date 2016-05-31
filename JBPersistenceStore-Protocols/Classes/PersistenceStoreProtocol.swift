@@ -25,7 +25,10 @@ public protocol PersistenceStoreProtocol{
         T.Coder: NSCoding,
         T.Coder.ValueType == T>(item: T) -> T
     
-    func delete(identifier: String, type: CanBePersistedProtocol.Type)
+    func delete<
+        T where
+        T: CanBePersistedProtocol,
+        T: NSCoding>(identifier: String, type: T.Type)
     
     func delete(item: CanBePersistedProtocol) -> CanBePersistedProtocol
     
@@ -33,6 +36,8 @@ public protocol PersistenceStoreProtocol{
         T where
         T: CanBePersistedProtocol,
         T: NSCoding>(identifier: String) -> T?
+    
+    func get(identifier: String, type: CanBePersistedProtocol.Type) -> CanBePersistedProtocol?
     
     func get<
         T where
