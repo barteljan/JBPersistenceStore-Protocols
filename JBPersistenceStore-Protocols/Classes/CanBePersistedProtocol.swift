@@ -9,8 +9,8 @@
 import Foundation
 
 
-public protocol CanBePersistedProtocol : CanBeIdentifiedProtocol{
+public protocol CanBePersistedProtocol {
     static func collectionName() -> String
-    //func collectionName() -> String
+    func identifier()->String
 }
 
