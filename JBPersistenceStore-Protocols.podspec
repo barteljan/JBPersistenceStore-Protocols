@@ -17,6 +17,6 @@ Protocols for a persistence store used as a facade for your favorite persistence
 
   s.source_files = 'JBPersistenceStore-Protocols/Classes/**/*'
 
-  s.dependency 'ValueCoding'
+  s.dependency 'ValueCoding','1.5.0'
 
 end
