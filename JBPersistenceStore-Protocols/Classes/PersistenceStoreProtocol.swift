@@ -23,7 +23,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     func delete<
         T>(_ identifier: String, type: T.Type) where
@@ -44,7 +44,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func exists<T>(_ item : T) -> Bool where
@@ -56,7 +56,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func exists<T>(_ identifier : String,type : T.Type) -> Bool where
@@ -68,7 +68,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
@@ -80,7 +80,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func addView<T>
@@ -115,7 +115,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     func getAll<
         T>(_ type: T.Type) -> [T] where
@@ -127,7 +127,7 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func getAll< T>(_ viewName:String)->[T] where
@@ -139,14 +139,14 @@ public protocol PersistenceStoreProtocol{
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func getAll< T>(_ viewName:String,groupName:String)->[T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T
+        T.Coder.Value == T
     
     
     func getAll< T>(_ viewName:String,groupName:String)->[T] where

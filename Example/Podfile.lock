@@ -1,5 +1,5 @@
 PODS:
-  - JBPersistenceStore-Protocols (0.2.3):
+  - JBPersistenceStore-Protocols (0.3.0):
     - ValueCoding (~> 2.1)
   - ValueCoding (2.1.0)
 
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JBPersistenceStore-Protocols: fb3e988247373274c2b0cb7dec321dd3fc63fba1
+  JBPersistenceStore-Protocols: fda12ecd83eacef8d59893a3e7916ec0bfaffd6a
   ValueCoding: f18cd2f0c941c43e06669717ca25aeed02d702a9
 
 PODFILE CHECKSUM: c5a4f560204cb4f32ed54daef7e8fcf34fde1b3b
