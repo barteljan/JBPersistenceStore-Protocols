@@ -71,12 +71,12 @@ public protocol PersistenceStoreProtocol{
         T.Coder.Value == T
     
     
-    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
+    func filter <T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) -> [T] where
         T: CanBePersistedProtocol,
         T: NSCoding
     
     
-    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
+    func filter <T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) -> [T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
@@ -84,38 +84,40 @@ public protocol PersistenceStoreProtocol{
     
     
     func addView<T>
-        (     _ viewName: String,
-              groupingBlock:((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
-              
-              sortingBlock: ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) where
-        T: CanBePersistedProtocol,
-        T: NSCoding
+    (     _ viewName: String,
     
-    func addView<T>
-        (     _ viewName: String,
-              groupingBlock:((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
-              
-              sortingBlock: ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) where
+       groupingBlock:@escaping ((  _ collection: String,
+                                          _ key: String,
+                                       _ object: T)->String?),
+    
+        sortingBlock: @escaping ((      _ group: String,
+                                  _ collection1: String,
+                                         _ key1: String,
+                                      _ object1: T,
+                                  _ collection2: String,
+                                         _ key2: String,
+                                      _ object2: T) -> ComparisonResult)) where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
         T.Coder.Value == T
+    
+    func addView<T>
+        (     _ viewName: String,
+           groupingBlock:@escaping (( _ collection: String,
+                                             _ key: String,
+                                          _ object: T)->String?),
+              
+            sortingBlock: @escaping ((     _ group: String,
+                                     _ collection1: String,
+                                            _ key1: String,
+                                         _ object1: T,
+                                     _ collection2: String,
+                                            _ key2: String,
+                                         _ object2: T) -> ComparisonResult)) where
+        T: CanBePersistedProtocol,
+        T: NSCoding
+    
     
     func getAll<
         T>(_ type: T.Type) -> [T] where
