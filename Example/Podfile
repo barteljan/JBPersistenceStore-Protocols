@@ -1,10 +1,10 @@
 use_frameworks!
 
-target 'JBPersistenceStore-Protocols_Example', :exclusive => true do
+target 'JBPersistenceStore-Protocols_Example' do
   pod 'JBPersistenceStore-Protocols', :path => '../'
 end
 
-target 'JBPersistenceStore-Protocols_Tests', :exclusive => true do
+target 'JBPersistenceStore-Protocols_Tests' do
   pod 'JBPersistenceStore-Protocols', :path => '../'
 
   

@@ -12,146 +12,146 @@ import ValueCoding
 public protocol PersistenceStoreProtocol{
     
     func persist<
-        T where
+        T>(_ item: T) -> T where
         T: CanBePersistedProtocol,
-        T: NSCoding>(item: T) -> T
+        T: NSCoding
     
-    func persist(item: protocol<CanBePersistedProtocol,NSCoding>) -> protocol<CanBePersistedProtocol,NSCoding>
+    func persist(_ item: CanBePersistedProtocol & NSCoding) -> CanBePersistedProtocol & NSCoding
     
     func persist<
-        T where
+        T>(_ item: T) -> T where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(item: T) -> T
+        T.Coder.ValueType == T
     
     func delete<
-        T where
+        T>(_ identifier: String, type: T.Type) where
         T: CanBePersistedProtocol,
-        T: NSCoding>(identifier: String, type: T.Type)
+        T: NSCoding
     
-    func delete(item: CanBePersistedProtocol) -> CanBePersistedProtocol
+    func delete(_ item: CanBePersistedProtocol) -> CanBePersistedProtocol
     
     func get<
-        T where
+        T>(_ identifier: String) -> T? where
         T: CanBePersistedProtocol,
-        T: NSCoding>(identifier: String) -> T?
+        T: NSCoding
     
-    func get(identifier: String, type: CanBePersistedProtocol.Type) -> CanBePersistedProtocol?
+    func get(_ identifier: String, type: CanBePersistedProtocol.Type) -> CanBePersistedProtocol?
     
     func get<
-        T where
+        T>(_ identifier: String) -> T? where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(identifier: String) -> T?
+        T.Coder.ValueType == T
     
     
-    func exists<T where
+    func exists<T>(_ item : T) -> Bool where
         T: CanBePersistedProtocol,
-        T: NSCoding>(item : T) -> Bool
+        T: NSCoding
     
     
-    func exists<T where
-        T: CanBePersistedProtocol,
-        T: ValueCoding,
-        T.Coder: NSCoding,
-        T.Coder.ValueType == T>(item: T) -> Bool
-    
-    
-    func exists<T where
-        T: CanBePersistedProtocol,
-        T: NSCoding>(identifier : String,type : T.Type) -> Bool
-    
-    
-    func exists<T where
+    func exists<T>(_ item: T) -> Bool where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(identifier : String,type : T.Type) -> Bool
+        T.Coder.ValueType == T
     
     
-    func filter <T where
+    func exists<T>(_ identifier : String,type : T.Type) -> Bool where
         T: CanBePersistedProtocol,
-        T: NSCoding>(type: T.Type, includeElement: (T) -> Bool) -> [T]
+        T: NSCoding
     
     
-    func filter <T where
+    func exists<T>(_ identifier : String,type : T.Type) -> Bool where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(type: T.Type, includeElement: (T) -> Bool) -> [T]
+        T.Coder.ValueType == T
     
     
-    func addView<T where
+    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
         T: CanBePersistedProtocol,
-        T: NSCoding>
-        (     viewName: String,
-              groupingBlock:((collection: String,
-        key: String,
-        object: T)->String?),
+        T: NSCoding
+    
+    
+    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
+        T: CanBePersistedProtocol,
+        T: ValueCoding,
+        T.Coder: NSCoding,
+        T.Coder.ValueType == T
+    
+    
+    func addView<T>
+        (     _ viewName: String,
+              groupingBlock:((_ collection: String,
+        _ key: String,
+        _ object: T)->String?),
               
-              sortingBlock: ((     group: String,
-        collection1: String,
-        key1: String,
-        object1: T,
-        collection2: String,
-        key2: String,
-        object2: T) -> NSComparisonResult))
+              sortingBlock: ((     _ group: String,
+        _ collection1: String,
+        _ key1: String,
+        _ object1: T,
+        _ collection2: String,
+        _ key2: String,
+        _ object2: T) -> ComparisonResult)) where
+        T: CanBePersistedProtocol,
+        T: NSCoding
     
-    func addView<T where
+    func addView<T>
+        (     _ viewName: String,
+              groupingBlock:((_ collection: String,
+        _ key: String,
+        _ object: T)->String?),
+              
+              sortingBlock: ((     _ group: String,
+        _ collection1: String,
+        _ key1: String,
+        _ object1: T,
+        _ collection2: String,
+        _ key2: String,
+        _ object2: T) -> ComparisonResult)) where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>
-        (     viewName: String,
-              groupingBlock:((collection: String,
-        key: String,
-        object: T)->String?),
-              
-              sortingBlock: ((     group: String,
-        collection1: String,
-        key1: String,
-        object1: T,
-        collection2: String,
-        key2: String,
-        object2: T) -> NSComparisonResult))
+        T.Coder.ValueType == T
     
     func getAll<
-        T where
+        T>(_ type: T.Type) -> [T] where
         T: CanBePersistedProtocol,
-        T: NSCoding>(type: T.Type) -> [T]
+        T: NSCoding
     
     func getAll<
-        T where
+        T>(_ type: T.Type) -> [T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(type: T.Type) -> [T]
+        T.Coder.ValueType == T
     
     
-    func getAll< T where
+    func getAll< T>(_ viewName:String)->[T] where
         T: CanBePersistedProtocol,
-        T: NSCoding>(viewName:String)->[T]
+        T: NSCoding
     
     
-    func getAll< T where
-        T: CanBePersistedProtocol,
-        T: ValueCoding,
-        T.Coder: NSCoding,
-        T.Coder.ValueType == T>(viewName:String)->[T]
-    
-    
-    func getAll< T where
+    func getAll< T>(_ viewName:String)->[T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
-        T.Coder.ValueType == T>(viewName:String,groupName:String)->[T]
+        T.Coder.ValueType == T
     
     
-    func getAll< T where
+    func getAll< T>(_ viewName:String,groupName:String)->[T] where
         T: CanBePersistedProtocol,
-        T: NSCoding>(viewName:String,groupName:String)->[T]
+        T: ValueCoding,
+        T.Coder: NSCoding,
+        T.Coder.ValueType == T
+    
+    
+    func getAll< T>(_ viewName:String,groupName:String)->[T] where
+        T: CanBePersistedProtocol,
+        T: NSCoding
     
     
 }
