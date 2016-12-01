@@ -1,14 +1,19 @@
 PODS:
-  - JBPersistenceStore-Protocols (0.1.0)
+  - JBPersistenceStore-Protocols (0.2.3):
+    - ValueCoding (= 1.5.0)
+  - ValueCoding (1.5.0)
 
 DEPENDENCIES:
   - JBPersistenceStore-Protocols (from `../`)
 
 EXTERNAL SOURCES:
   JBPersistenceStore-Protocols:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  JBPersistenceStore-Protocols: 45e33c33f14b153200dffbf8f293e91d1699a86a
+  JBPersistenceStore-Protocols: e7c2ce8bd2e3a763b3a8303978d1cc7813124945
+  ValueCoding: c88871a90100fc1b1e982dba95a503a4ca997175
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: c5a4f560204cb4f32ed54daef7e8fcf34fde1b3b
+
+COCOAPODS: 1.1.1

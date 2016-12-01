@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import JBPersistenceStore-Protocols
+import JBPersistenceStore_Protocols
 
 class Tests: XCTestCase {
     

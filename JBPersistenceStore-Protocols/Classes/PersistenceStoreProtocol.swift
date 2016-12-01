@@ -11,6 +11,8 @@ import ValueCoding
 
 public protocol PersistenceStoreProtocol{
     
+    func version() -> Int
+    
     func persist<
         T where
         T: CanBePersistedProtocol,
@@ -154,4 +156,12 @@ public protocol PersistenceStoreProtocol{
         T: NSCoding>(viewName:String,groupName:String)->[T]
     
     
+}
+
+public extension PersistenceStoreProtocol{
+    
+    public func version() -> Int {
+        return 0
+    }
+
 }
