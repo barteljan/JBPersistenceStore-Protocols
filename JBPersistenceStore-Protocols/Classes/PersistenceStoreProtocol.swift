@@ -10,7 +10,9 @@ import Foundation
 import ValueCoding
 
 public protocol PersistenceStoreProtocol{
-    
+
+    func version() -> Int
+
     func persist<
         T>(_ item: T) -> T where
         T: CanBePersistedProtocol,
@@ -71,12 +73,12 @@ public protocol PersistenceStoreProtocol{
         T.Coder.Value == T
     
     
-    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
+    func filter <T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) -> [T] where
         T: CanBePersistedProtocol,
         T: NSCoding
     
     
-    func filter <T>(_ type: T.Type, includeElement: (T) -> Bool) -> [T] where
+    func filter <T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) -> [T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
@@ -85,11 +87,11 @@ public protocol PersistenceStoreProtocol{
     
     func addView<T>
         (     _ viewName: String,
-              groupingBlock:((_ collection: String,
+              groupingBlock: @escaping ((_ collection: String,
         _ key: String,
         _ object: T)->String?),
               
-              sortingBlock: ((     _ group: String,
+              sortingBlock: @escaping ((     _ group: String,
         _ collection1: String,
         _ key1: String,
         _ object1: T,
@@ -101,11 +103,11 @@ public protocol PersistenceStoreProtocol{
     
     func addView<T>
         (     _ viewName: String,
-              groupingBlock:((_ collection: String,
+              groupingBlock: @escaping ((_ collection: String,
         _ key: String,
         _ object: T)->String?),
               
-              sortingBlock: ((     _ group: String,
+              sortingBlock: @escaping ((     _ group: String,
         _ collection1: String,
         _ key1: String,
         _ object1: T,
@@ -154,4 +156,12 @@ public protocol PersistenceStoreProtocol{
         T: NSCoding
     
     
+}
+
+public extension PersistenceStoreProtocol{
+
+    public func version() -> Int {
+        return 0
+    }
+
 }
