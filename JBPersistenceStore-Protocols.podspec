@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JBPersistenceStore-Protocols"
-  s.version          = "0.3.3"
+  s.version          = "1.0.0"
   s.summary          = "Protocols for a persistence store used as a facade for your favorite persistence library"
 
   s.description      = <<-DESC
@@ -16,7 +16,5 @@ Protocols for a persistence store used as a facade for your favorite persistence
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'JBPersistenceStore-Protocols/Classes/**/*'
-
-  s.dependency 'ValueCoding','~> 2.0.0'
 
 end

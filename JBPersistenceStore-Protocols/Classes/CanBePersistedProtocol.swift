@@ -11,6 +11,5 @@ import Foundation
 
 public protocol CanBePersistedProtocol : CanBeIdentifiedProtocol{
     static func collectionName() -> String
-    //func collectionName() -> String
 }
 

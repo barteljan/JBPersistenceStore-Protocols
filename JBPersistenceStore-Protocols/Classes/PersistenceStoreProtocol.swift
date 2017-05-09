@@ -7,9 +7,51 @@
 //
 
 import Foundation
-import ValueCoding
 
-public protocol PersistenceStoreProtocol{
+public protocol PersistenceStoreProtocol : AnyPersistenceStoreProtocol {
+    
+    func persist<T>(_ item: T) -> T
+    func delete<T>(_ item: T) -> T
+    func get<T>(_ identifier: String) -> T?
+    func get<T>(_ identifier: String, type: T.Type) -> T?
+    func exists<T>(_ item : T) -> Bool
+    func exists<T>(_ identifier : String,type : T.Type) -> Bool
+    func filter <T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) -> [T]
+    
+    func addView<T>
+        (     _ viewName: String,
+              groupingBlock: @escaping ((_ collection: String,
+        _ key: String,
+        _ object: T)->String?),
+              
+              sortingBlock: @escaping ((     _ group: String,
+        _ collection1: String,
+        _ key1: String,
+        _ object1: T,
+        _ collection2: String,
+        _ key2: String,
+        _ object2: T) throws -> ComparisonResult))
+    
+    func getAll<T>(_ type: T.Type) -> [T]
+    func getAll<T>(_ viewName:String)->[T]
+    func getAll<T>(_ viewName:String,groupName:String)->[T]
+}
+
+
+public extension PersistenceStoreProtocol{
+    
+    public func version() -> Int {
+        return 0
+    }
+    
+}
+
+
+
+
+
+/*
+public protocol PersistenceStoreProtocolOld{
 
     func version() -> Int
 
@@ -34,15 +76,13 @@ public protocol PersistenceStoreProtocol{
     
     func delete(_ item: CanBePersistedProtocol) -> CanBePersistedProtocol
     
-    func get<
-        T>(_ identifier: String) -> T? where
+    func get<T>(_ identifier: String) -> T? where
         T: CanBePersistedProtocol,
         T: NSCoding
     
     func get(_ identifier: String, type: CanBePersistedProtocol.Type) -> CanBePersistedProtocol?
     
-    func get<
-        T>(_ identifier: String) -> T? where
+    func get<T>(_ identifier: String) -> T? where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
@@ -119,49 +159,41 @@ public protocol PersistenceStoreProtocol{
         T.Coder: NSCoding,
         T.Coder.Value == T
     
-    func getAll<
-        T>(_ type: T.Type) -> [T] where
+    func getAll<T>(_ type: T.Type) -> [T] where
         T: CanBePersistedProtocol,
         T: NSCoding
     
-    func getAll<
-        T>(_ type: T.Type) -> [T] where
+    func getAll<T>(_ type: T.Type) -> [T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
         T.Coder.Value == T
     
     
-    func getAll< T>(_ viewName:String)->[T] where
+    func getAll<T>(_ viewName:String)->[T] where
         T: CanBePersistedProtocol,
         T: NSCoding
     
     
-    func getAll< T>(_ viewName:String)->[T] where
+    func getAll<T>(_ viewName:String)->[T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
         T.Coder.Value == T
     
     
-    func getAll< T>(_ viewName:String,groupName:String)->[T] where
+    func getAll<T>(_ viewName:String,groupName:String)->[T] where
         T: CanBePersistedProtocol,
         T: ValueCoding,
         T.Coder: NSCoding,
         T.Coder.Value == T
     
     
-    func getAll< T>(_ viewName:String,groupName:String)->[T] where
+    func getAll<T>(_ viewName:String,groupName:String)->[T] where
         T: CanBePersistedProtocol,
         T: NSCoding
     
     
 }
+*/
 
-public extension PersistenceStoreProtocol{
-
-    public func version() -> Int {
-        return 0
-    }
-
-}

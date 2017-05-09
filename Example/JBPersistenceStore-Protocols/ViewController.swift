@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JBPersistenceStore_Protocols
 
 class ViewController: UIViewController {
 
