@@ -13,3 +13,10 @@ public protocol CanBePersistedProtocol : CanBeIdentifiedProtocol{
     static func collectionName() -> String
 }
 
+public extension CanBePersistedProtocol {
+    static func ==(lhs:Self, rhs:Self) -> Bool {
+        
+        return (type(of:lhs).collectionName() == type(of:rhs).collectionName()) && lhs.identifier() == rhs.identifier()
+        
+    }
+}
