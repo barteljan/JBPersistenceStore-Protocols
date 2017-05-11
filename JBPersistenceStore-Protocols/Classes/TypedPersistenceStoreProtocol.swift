@@ -8,9 +8,7 @@
 
 import Foundation
 
-public enum TypedPersistenceStoreError : Error{
-    case methodHasToImplementedSavelyWithWhereContraint
-}
+
 
 public protocol TypedPersistenceStoreProtocol {
     
@@ -26,6 +24,8 @@ public protocol TypedPersistenceStoreProtocol {
     
     func delete<T>(_ item: T!) throws
     func delete<T>(_ item: T!, completion: @escaping () -> ()) throws
+    func delete<T>(_ identifier: String, type: T.Type) throws
+    func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws
     
     func get<T>(_ identifier: String) throws -> T?
     func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws
@@ -78,85 +78,91 @@ public extension TypedPersistenceStoreProtocol {
     }
     
     public func persist<T>(_ item: T!) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func persist<T>(_ item: T!,completion: @escaping () -> ()) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func delete<T>(_ item: T!) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
 
-    
     public func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
  
+    public func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+        throw PersistenceStoreError.MethodHasToBeImplemented
+    }
+    
+    public func delete<T>(_ identifier: String, type: T.Type) throws {
+        throw PersistenceStoreError.MethodHasToBeImplemented
+    }
     
     public func get<T>(_ identifier: String) throws -> T? {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func get<T>(_ identifier: String, type: T.Type) throws -> T? {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ type: T.Type) throws -> [T] {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ viewName:String) throws ->[T] {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ viewName:String,groupName:String) throws ->[T]  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func exists(_ item : Any!) throws -> Bool  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func exists(_ identifier : String,type : Any.Type) throws -> Bool  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T]  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws  {
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
     public func addView<T>(_ viewName: String,
@@ -172,7 +178,7 @@ public extension TypedPersistenceStoreProtocol {
         _ key2: String,
         _ object2: T) -> ComparisonResult)) throws {
         
-        throw TypedPersistenceStoreError.methodHasToImplementedSavelyWithWhereContraint
+        throw PersistenceStoreError.MethodHasToBeImplemented
     }
 
     

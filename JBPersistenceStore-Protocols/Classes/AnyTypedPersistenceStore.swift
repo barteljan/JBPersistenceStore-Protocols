@@ -9,18 +9,6 @@
 
 import Foundation
 
-
-
-public enum AnyTypedPersistenceStoreError : Error{
-    case CannotUse(object : Any, inStoreWithType: Any.Type)
-    case CannotRetrieveValue(type: Any.Type,fromStoreWithType: Any.Type, valueWas: Any )
-    case CannotRetrieve(type: Any.Type,fromStoreWithType: Any.Type)
-    case CannotCheckForExistence(ofItem: Any, inStoreWithType: Any.Type)
-    case CannotCheckForExistenceOfIdentifier(identifier: String, withType: Any.Type, inStoreWithType: Any.Type)
-    case CannotCreateViewForValues(ofType: Any.Type, inStoreWithType: Any.Type)
-}
-
-
 class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtocol{
     
     typealias PersistableType = PersistedType
@@ -49,6 +37,14 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
     }
     
     func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
+        fatalError("override me")
+    }
+    
+    func delete<T>(_ identifier: String, type: T.Type) throws {
+        fatalError("override me")
+    }
+    
+    func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
         fatalError("override me")
     }
     
@@ -167,6 +163,14 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
     
     override func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
         try self.base.delete(item, completion: completion)
+    }
+    
+    override func delete<T>(_ identifier: String, type: T.Type) throws {
+        try self.base.delete(identifier, type: type)
+    }
+    
+    override func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+        try self.base.delete(identifier, type: type, completion: completion)
     }
     
     override func get<T>(_ identifier: String) throws -> T? {
@@ -290,6 +294,14 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
     
     public func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
         try self.box.delete(item, completion: completion)
+    }
+    
+    public func delete<T>(_ identifier: String, type: T.Type) throws {
+        try self.box.delete(identifier, type: type)
+    }
+    
+    public func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+        try self.box.delete(identifier, type: type, completion: completion)
     }
     
     public func get<T>(_ identifier: String) throws -> T? {
