@@ -74,7 +74,7 @@ public extension TypedPersistenceStoreProtocol {
     }
     
     func isResponsible(forType type: Any.Type) -> Bool{
-        return type is PersistableType
+        return type.self is PersistableType.Type
     }
     
     public func persist<T>(_ item: T!) throws {
