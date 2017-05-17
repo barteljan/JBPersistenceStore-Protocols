@@ -105,7 +105,10 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func get<T>(_ identifier: String) throws -> T? {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        print(T.self)
+        print(WrappedStoreType.self)
+        
+        if let type = T.self as? WrappedStoreType {
             
            return try self.wrappedStore.get(identifier)
             
@@ -117,7 +120,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             try self.wrappedStore.get(identifier, completion: completion)
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
@@ -127,8 +130,8 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func get<T>(_ identifier: String, type: T.Type) throws -> T? {
         
-        if let type = T.self as? WrappedStoreType.Type {
-           return try self.wrappedStore.get(identifier, type: type) as! T?
+        if let type = T.self as? WrappedStoreType {
+            return try self.wrappedStore.get(identifier, type: T.self)
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
         }
@@ -137,11 +140,9 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
            
-            try self.wrappedStore.get(identifier, type: type){ (item: WrappedStoreType?) -> Void in
-                completion(item as! T?)
-            }
+            try self.wrappedStore.get(identifier, type: T.self,completion: completion)
             
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
@@ -151,11 +152,8 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ type: T.Type) throws -> [T] {
         
-        if let type = T.self as? WrappedStoreType.Type {
-            return try self.getAll(type)
-                            .map({ (item: WrappedStoreType) -> T in
-                return item as! T
-            })
+        if let type = T.self as? WrappedStoreType {
+            return try self.wrappedStore.getAll(T.self)
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
         }
@@ -163,13 +161,9 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
            
-            try self.getAll(type){ (items: [WrappedStoreType]) in
-                completion(items.map({ (item: WrappedStoreType) -> T in
-                    return item as! T
-                }))
-            }
+            try self.wrappedStore.getAll(T.self,completion: completion)
             
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
@@ -179,7 +173,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ viewName:String) throws ->[T] {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
            
             return try self.wrappedStore.getAll(viewName)
             
@@ -191,7 +185,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
             try self.wrappedStore.getAll(viewName, completion: completion)
             
@@ -203,7 +197,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
             return try self.wrappedStore.getAll(viewName, groupName: groupName)
             
@@ -214,7 +208,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
             try self.wrappedStore.getAll(viewName, groupName: groupName, completion: completion)
             
@@ -249,17 +243,11 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     
     public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws  -> [T] {
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
-            let items : [WrappedStoreType] = try self.wrappedStore.filter(type, includeElement: { (item: WrappedStoreType) -> Bool in
-                return includeElement(item as! T)
-            })
+            let items : [T] = try self.wrappedStore.filter(T.self, includeElement:includeElement)
             
-            let converted = items.map(){ (item: WrappedStoreType) -> T in
-                return item as! T
-            }
-            
-            return converted
+            return items
             
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
@@ -268,17 +256,9 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
-            try self.wrappedStore.filter(type, includeElement: { (item: WrappedStoreType) -> Bool in
-                return includeElement(item as! T)
-            }){ (items: [WrappedStoreType]) -> Void in
-                let convertedItems = items.map(){ (item: WrappedStoreType) -> T in
-                    return item as! T
-                }
-                completion(convertedItems)
-            }
-            
+            try self.wrappedStore.filter(T.self, includeElement: includeElement, completion: completion)
         } else {
             throw PersistenceStoreError.CannotUseType(type : T.Type.self, inStoreWithType: WrappedStoreType.self)
         }
@@ -287,7 +267,7 @@ open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceS
     
     public func addView<T>(_ viewName: String, groupingBlock: @escaping ((String, String, T) -> String?), sortingBlock: @escaping ((String, String, String, T, String, String, T) -> ComparisonResult)) throws {
         
-        if let type = T.self as? WrappedStoreType.Type {
+        if let type = T.self as? WrappedStoreType {
             
             try self.wrappedStore.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
             

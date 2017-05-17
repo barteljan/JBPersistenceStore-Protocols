@@ -76,7 +76,7 @@ public extension TypedPersistenceStoreProtocol {
     }
     
     func isResponsible(forType type: Any.Type) -> Bool{
-        return type.self is PersistableType.Type
+        return type.self is PersistableType
     }
     
     /*
