@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class ConvertingStore<PersistenceType,WrappedStoreType> : TypedPersistenceStoreProtocol{
+open class ConverterStore<PersistenceType,WrappedStoreType> : TypedPersistenceStoreProtocol{
     
     public typealias PersistableType = PersistenceType
 
