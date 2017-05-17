@@ -65,9 +65,11 @@ public protocol TypedPersistenceStoreProtocol {
 
 public extension TypedPersistenceStoreProtocol {
     
+    /*
     public func version() -> Int {
         return 0;
     }
+    */
     
     public func isResponsible(for object: Any) -> Bool{
         return object is PersistableType
@@ -77,6 +79,7 @@ public extension TypedPersistenceStoreProtocol {
         return type.self is PersistableType.Type
     }
     
+    /*
     public func persist<T>(_ item: T!) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
@@ -180,6 +183,6 @@ public extension TypedPersistenceStoreProtocol {
         
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
-
+    */
     
 }
