@@ -19,48 +19,50 @@ public protocol TypedPersistenceStoreProtocol {
     func isResponsible(for object: Any) -> Bool
     func isResponsible(forType type: Any.Type) -> Bool
 
-    func persist<T>(_ item: T!) throws
-    func persist<T>(_ item: T!,completion: @escaping () -> ()) throws
+    func persist(_ item: PersistableType) throws
+    func persist(_ item: PersistableType,completion: @escaping () -> ()) throws
     
-    func delete<T>(_ item: T!) throws
-    func delete<T>(_ item: T!, completion: @escaping () -> ()) throws
-    func delete<T>(_ identifier: String, type: T.Type) throws
-    func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws
+    func delete(_ item: PersistableType) throws
+    func delete(_ item: PersistableType, completion: @escaping () -> ()) throws
+    func delete(_ identifier: String, type: PersistableType.Type) throws
+    func delete(_ identifier: String, type: PersistableType.Type, completion: @escaping () -> ()) throws
     
-    func get<T>(_ identifier: String) throws -> T?
-    func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws
-    func get<T>(_ identifier: String, type: T.Type) throws -> T?
-    func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws
+    /*
+    func get(_ identifier: String) throws -> PersistableType?
+    func get(_ identifier: String, completion: @escaping (_ item: PersistableType?) -> Void ) throws
+    */
+    func get(_ identifier: String, type: PersistableType.Type) throws -> PersistableType?
+    func get(_ identifier: String, type: PersistableType.Type, completion: @escaping (_ item: PersistableType?) -> Void ) throws
     
-    func getAll<T>(_ type: T.Type) throws -> [T]
-    func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws
+    func getAll(_ type: PersistableType.Type) throws -> [PersistableType]
+    func getAll(_ type: PersistableType.Type, completion: @escaping (_ items: [PersistableType]) -> Void) throws
     
-    func getAll<T>(_ viewName:String) throws ->[T]
-    func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws
+    func getAll(_ viewName:String) throws ->[PersistableType]
+    func getAll(_ viewName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws
     
-    func getAll<T>(_ viewName:String,groupName:String) throws ->[T]
-    func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws
+    func getAll(_ viewName:String,groupName:String) throws ->[PersistableType]
+    func getAll(_ viewName:String,groupName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws
     
     func exists(_ item : Any!) throws -> Bool
     func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws
     func exists(_ identifier : String,type : Any.Type) throws -> Bool
     func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws
     
-    func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T]
-    func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws
+    func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool) throws -> [PersistableType]
+    func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool, completion: @escaping (_ items: [PersistableType]) -> Void) throws
     
-    func addView<T>(_ viewName: String,
+    func addView(   _ viewName: String,
                  groupingBlock: @escaping ((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
+                                                   _ key: String,
+                                                _ object: PersistableType)->String?),
                  
                  sortingBlock: @escaping ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) throws
+                                          _ collection1: String,
+                                                 _ key1: String,
+                                              _ object1: PersistableType,
+                                          _ collection2: String,
+                                                 _ key2: String,
+                                              _ object2: PersistableType) -> ComparisonResult)) throws
 }
 
 public extension TypedPersistenceStoreProtocol {
@@ -77,67 +79,70 @@ public extension TypedPersistenceStoreProtocol {
         return type.self is PersistableType.Type
     }
     
-    public func persist<T>(_ item: T!) throws {
+    /*
+    public func persist(_ item: PersistableType) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func persist<T>(_ item: T!,completion: @escaping () -> ()) throws {
+    public func persist(_ item: PersistableType,completion: @escaping () -> ()) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func delete<T>(_ item: T!) throws {
+    public func delete(_ item: PersistableType) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
 
-    public func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
-        throw PersistenceStoreError.MethodHasToBeImplemented
-    }
- 
-    public func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+    public func delete(_ item: PersistableType, completion: @escaping () -> ()) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func delete<T>(_ identifier: String, type: T.Type) throws {
+    public func delete(_ identifier: String, type: PersistableType.Type, completion: @escaping () -> ()) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func get<T>(_ identifier: String) throws -> T? {
+    public func delete(_ identifier: String, type: PersistableType.Type) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws {
+    
+    public func get(_ identifier: String) throws -> PersistableType? {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func get<T>(_ identifier: String, type: T.Type) throws -> T? {
+    public func get(_ identifier: String, completion: @escaping (_ item: PersistableType?) -> Void ) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
+    
+    public func get(_ identifier: String, type: PersistableType.Type) throws -> PersistableType? {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ type: T.Type) throws -> [T] {
+    public func get(_ identifier: String, type: PersistableType.Type, completion: @escaping (_ item: PersistableType?) -> Void ) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ type: PersistableType.Type) throws -> [PersistableType] {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ viewName:String) throws ->[T] {
+    public func getAll(_ type: PersistableType.Type, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ viewName:String) throws ->[PersistableType] {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ viewName:String,groupName:String) throws ->[T]  {
+    public func getAll(_ viewName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ viewName:String,groupName:String) throws ->[PersistableType]  {
+        throw PersistenceStoreError.MethodHasToBeImplemented
+    }
+    
+    public func getAll(_ viewName:String,groupName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
@@ -157,29 +162,29 @@ public extension TypedPersistenceStoreProtocol {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T]  {
+    public func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool) throws -> [PersistableType]  {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws  {
+    public func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool, completion: @escaping (_ items: [PersistableType]) -> Void) throws  {
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
     
-    public func addView<T>(_ viewName: String,
-                 groupingBlock: @escaping ((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
+    public func addView(_ viewName: String,
+                     groupingBlock: @escaping ((_ collection: String,
+                                                       _ key: String,
+                                                    _ object: PersistableType)->String?),
                  
-                 sortingBlock: @escaping ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) throws {
+                     sortingBlock: @escaping ((     _ group: String,
+                                              _ collection1: String,
+                                                     _ key1: String,
+                                                  _ object1: PersistableType,
+                                              _ collection2: String,
+                                                     _ key2: String,
+                                                  _ object2: PersistableType) -> ComparisonResult)) throws {
         
         throw PersistenceStoreError.MethodHasToBeImplemented
     }
-
+    */
     
 }

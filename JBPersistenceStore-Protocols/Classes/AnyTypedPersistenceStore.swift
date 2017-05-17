@@ -23,68 +23,68 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
-    func persist<T>(_ item: T!) throws {
+    func persist(_ item: PersistableType) throws {
         fatalError("override me")
     }
     
-    func persist<T>(_ item: T!,completion: @escaping () -> ()) throws {
+    func persist(_ item: PersistableType,completion: @escaping () -> ()) throws {
         fatalError("override me")
     }
     
     
-    func delete<T>(_ item: T!) throws {
+    func delete(_ item: PersistableType) throws {
         fatalError("override me")
     }
     
-    func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
+    func delete(_ item: PersistableType, completion: @escaping () -> ()) throws {
         fatalError("override me")
     }
     
-    func delete<T>(_ identifier: String, type: T.Type) throws {
+    func delete(_ identifier: String, type: PersistableType.Type) throws {
         fatalError("override me")
     }
     
-    func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+    func delete(_ identifier: String, type: PersistableType.Type, completion: @escaping () -> ()) throws {
         fatalError("override me")
     }
     
-    func get<T>(_ identifier: String) throws -> T? {
+    func get(_ identifier: String) throws -> PersistableType? {
         fatalError("override me")
     }
     
-    func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
+    func get(_ identifier: String, completion: @escaping (_ item: PersistableType?) -> Void ) throws  {
         fatalError("override me")
     }
     
-    func get<T>(_ identifier: String, type: T.Type) throws -> T? {
+    func get(_ identifier: String, type: PersistableType.Type) throws -> PersistableType? {
         fatalError("override me")
     }
     
-    func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
+    func get(_ identifier: String, type: PersistableType.Type, completion: @escaping (_ item: PersistableType?) -> Void ) throws {
         fatalError("override me")
     }
     
-    func getAll<T>(_ type: T.Type) throws -> [T]  {
+    func getAll(_ type: PersistableType.Type) throws -> [PersistableType]  {
         fatalError("override me")
     }
     
-    func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
+    func getAll(_ type: PersistableType.Type, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         fatalError("override me")
     }
     
-    func getAll<T>(_ viewName:String) throws ->[T]{
+    func getAll(_ viewName:String) throws ->[PersistableType]{
         fatalError("override me")
     }
     
-    func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    func getAll(_ viewName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         fatalError("override me")
     }
     
-    func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
+    func getAll(_ viewName:String,groupName:String) throws ->[PersistableType] {
         fatalError("override me")
     }
     
-    func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    func getAll(_ viewName:String,groupName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         fatalError("override me")
     }
     
@@ -104,27 +104,27 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
-    func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T] {
+    func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool) throws -> [PersistableType] {
         fatalError("override me")
     }
     
     
-    func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws {
+    func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         fatalError("override me")
     }
     
-    func addView<T>(_ viewName: String,
+    func addView(_ viewName: String,
                  groupingBlock: @escaping ((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
+                                                   _ key: String,
+                                                _ object: PersistableType)->String?),
                  
                  sortingBlock: @escaping ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) throws {
+                                          _ collection1: String,
+                                                 _ key1: String,
+                                              _ object1: PersistableType,
+                                          _ collection2: String,
+                                                 _ key2: String,
+                                              _ object2: PersistableType) -> ComparisonResult)) throws {
         fatalError("override me")
     }
     
@@ -148,68 +148,69 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         return self.base.version()
     }
     
-    override func persist<T>(_ item: T!) throws {
+    override func persist(_ item: Base.PersistableType) throws {
         try self.base.persist(item)
     }
     
-    override func persist<T>(_ item: T!,completion: @escaping () -> ()) throws {
+    override func persist(_ item: Base.PersistableType,completion: @escaping () -> ()) throws {
         try self.base.persist(item, completion: completion)
     }
     
     
-    override func delete<T>(_ item: T!) throws {
+    override func delete(_ item: Base.PersistableType) throws {
         try self.base.delete(item)
     }
     
-    override func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
+    override func delete(_ item: Base.PersistableType, completion: @escaping () -> ()) throws {
         try self.base.delete(item, completion: completion)
     }
     
-    override func delete<T>(_ identifier: String, type: T.Type) throws {
+    override func delete(_ identifier: String, type: Base.PersistableType.Type) throws {
         try self.base.delete(identifier, type: type)
     }
     
-    override func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+    override func delete(_ identifier: String, type: Base.PersistableType.Type, completion: @escaping () -> ()) throws {
         try self.base.delete(identifier, type: type, completion: completion)
     }
     
-    override func get<T>(_ identifier: String) throws -> T? {
+    /*
+    override func get(_ identifier: String) throws -> Base.PersistableType? {
         return try self.base.get(identifier)
     }
     
-    override func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
+    override func get(_ identifier: String, completion: @escaping (_ item: Base.PersistableType?) -> Void ) throws  {
         try self.base.get(identifier,completion: completion)
     }
-    
-    override func get<T>(_ identifier: String, type: T.Type) throws -> T? {
+    */
+    override func get(_ identifier: String, type: Base.PersistableType.Type) throws -> Base.PersistableType? {
         return try self.base.get(identifier, type: type)
     }
     
-    override func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
+    override func get(_ identifier: String, type: Base.PersistableType.Type, completion: @escaping (_ item: Base.PersistableType?) -> Void ) throws {
         try self.base.get(identifier, type: type, completion: completion)
     }
     
-    override func getAll<T>(_ type: T.Type) throws -> [T]  {
+    override func getAll(_ type: Base.PersistableType.Type) throws -> [Base.PersistableType]  {
         return try self.base.getAll(type)
     }
     
-    override func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
+    override func getAll(_ type: Base.PersistableType.Type, completion: @escaping (_ items: [Base.PersistableType]) -> Void) throws {
         try self.base.getAll(type, completion: completion)
     }
     
-    override func getAll<T>(_ viewName:String) throws ->[T]{
+    override func getAll(_ viewName:String) throws ->[Base.PersistableType]{
         return try self.base.getAll(viewName)
     }
     
-    override func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    override func getAll(_ viewName:String, completion: @escaping (_ items: [Base.PersistableType]) -> Void) throws {
         try self.base.getAll(viewName, completion: completion)
     }
     
-    override func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
+    override func getAll(_ viewName:String,groupName:String) throws ->[Base.PersistableType] {
         return try self.getAll(viewName,groupName:groupName)
     }
     
-    override func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    override func getAll(_ viewName:String,groupName:String, completion: @escaping (_ items: [Base.PersistableType]) -> Void) throws {
         try getAll(viewName, groupName: groupName, completion: completion)
     }
     
@@ -229,27 +230,27 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         try self.base.exists(identifier, type: type, completion: completion)
     }
     
-    override func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T] {
+    override func filter(_ type: Base.PersistableType.Type, includeElement: @escaping (Base.PersistableType) -> Bool) throws -> [Base.PersistableType] {
         return try self.base.filter(type, includeElement: includeElement)
     }
     
     
-    override func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws {
+    override func filter(_ type: Base.PersistableType.Type, includeElement: @escaping (Base.PersistableType) -> Bool, completion: @escaping (_ items: [Base.PersistableType]) -> Void) throws {
         try self.base.filter(type, includeElement: includeElement, completion: completion)
     }
     
-    override func addView<T>(_ viewName: String,
+    override func addView(_ viewName: String,
                           groupingBlock: @escaping ((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
+                                                            _ key: String,
+                                                         _ object: Base.PersistableType)->String?),
                           
                           sortingBlock: @escaping ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) throws {
+                                                   _ collection1: String,
+                                                          _ key1: String,
+                                                       _ object1: Base.PersistableType,
+                                                   _ collection2: String,
+                                                          _ key2: String,
+                                                       _ object2: Base.PersistableType) -> ComparisonResult)) throws {
         try self.base.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
     }
     
@@ -279,68 +280,68 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         return self.box.version()
     }
     
-    public func persist<T>(_ item: T!) throws {
+    public func persist(_ item: PersistableType) throws {
         try self.box.persist(item)
     }
     
-    public func persist<T>(_ item: T!,completion: @escaping () -> ()) throws {
+    public func persist(_ item: PersistableType,completion: @escaping () -> ()) throws {
         try self.box.persist(item, completion: completion)
     }
     
     
-    public func delete<T>(_ item: T!) throws {
+    public func delete(_ item: PersistableType) throws {
         try self.box.delete(item)
     }
     
-    public func delete<T>(_ item: T!, completion: @escaping () -> ()) throws {
+    public func delete(_ item: PersistableType, completion: @escaping () -> ()) throws {
         try self.box.delete(item, completion: completion)
     }
     
-    public func delete<T>(_ identifier: String, type: T.Type) throws {
+    public func delete(_ identifier: String, type: PersistableType.Type) throws {
         try self.box.delete(identifier, type: type)
     }
     
-    public func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
+    public func delete(_ identifier: String, type: PersistableType.Type, completion: @escaping () -> ()) throws {
         try self.box.delete(identifier, type: type, completion: completion)
     }
     
-    public func get<T>(_ identifier: String) throws -> T? {
+    public func get(_ identifier: String) throws -> PersistableType? {
         return try self.box.get(identifier)
     }
     
-    public func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
+    public func get(_ identifier: String, completion: @escaping (_ item: PersistableType?) -> Void ) throws  {
         try self.box.get(identifier,completion: completion)
     }
     
-    public func get<T>(_ identifier: String, type: T.Type) throws -> T? {
+    public func get(_ identifier: String, type: PersistableType.Type) throws -> PersistableType? {
         return try self.box.get(identifier, type: type)
     }
     
-    public func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
+    public func get(_ identifier: String, type: PersistableType.Type, completion: @escaping (_ item: PersistableType?) -> Void ) throws {
         try self.box.get(identifier, type: type, completion: completion)
     }
     
-    public func getAll<T>(_ type: T.Type) throws -> [T]  {
+    public func getAll(_ type: PersistableType.Type) throws -> [PersistableType]  {
         return try self.box.getAll(type)
     }
     
-    public func getAll<T>(_ type: T.Type, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ type: PersistableType.Type, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         try self.box.getAll(type, completion: completion)
     }
     
-    public func getAll<T>(_ viewName:String) throws ->[T]{
+    public func getAll(_ viewName:String) throws ->[PersistableType]{
         return try self.box.getAll(viewName)
     }
     
-    public func getAll<T>(_ viewName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ viewName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         try self.box.getAll(viewName, completion: completion)
     }
     
-    public func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
+    public func getAll(_ viewName:String,groupName:String) throws ->[PersistableType] {
         return try self.getAll(viewName,groupName:groupName)
     }
     
-    public func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func getAll(_ viewName:String,groupName:String, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         try getAll(viewName, groupName: groupName, completion: completion)
     }
     
@@ -360,27 +361,27 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         try self.box.exists(identifier, type: type, completion: completion)
     }
     
-    public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T] {
+    public func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool) throws -> [PersistableType] {
         return try self.box.filter(type, includeElement: includeElement)
     }
     
     
-    public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws {
+    public func filter(_ type: PersistableType.Type, includeElement: @escaping (PersistableType) -> Bool, completion: @escaping (_ items: [PersistableType]) -> Void) throws {
         try self.box.filter(type, includeElement: includeElement, completion: completion)
     }
     
-    public func addView<T>(_ viewName: String,
-                        groupingBlock: @escaping ((_ collection: String,
-        _ key: String,
-        _ object: T)->String?),
+    public func addView(_ viewName: String,
+                     groupingBlock: @escaping ((_ collection: String,
+                                                       _ key: String,
+                                                    _ object: PersistableType)->String?),
                         
-                        sortingBlock: @escaping ((     _ group: String,
-        _ collection1: String,
-        _ key1: String,
-        _ object1: T,
-        _ collection2: String,
-        _ key2: String,
-        _ object2: T) -> ComparisonResult)) throws {
+                      sortingBlock: @escaping ((     _ group: String,
+                                               _ collection1: String,
+                                                      _ key1: String,
+                                                   _ object1: PersistableType,
+                                               _ collection2: String,
+                                                      _ key2: String,
+                                                   _ object2: PersistableType) -> ComparisonResult)) throws {
         try self.box.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
     }
     
