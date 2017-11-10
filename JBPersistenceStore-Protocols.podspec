@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JBPersistenceStore-Protocols"
-  s.version          = "1.1.1"
+  s.version          = "2.0.0"
   s.summary          = "Protocols for a persistence store used as a facade for your favorite persistence library"
 
   s.description      = <<-DESC
@@ -12,6 +12,9 @@ Protocols for a persistence store used as a facade for your favorite persistence
   s.author           = { "Jan Bartel" => "jan.bartel@atino.net" }
   s.source           = { :git => "https://github.com/barteljan/JBPersistenceStore-Protocols.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/janbartel'
+
+  s.pod_target_xcconfig = { 'WARNING_CFLAGS' => '-Wdeprecated-declarations' }
+
 
   s.ios.deployment_target = '8.0'
 
