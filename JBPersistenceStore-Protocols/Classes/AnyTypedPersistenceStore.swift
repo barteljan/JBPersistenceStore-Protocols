@@ -40,27 +40,11 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
-    func delete<T>(_ identifier: String, type: T.Type) throws {
-        fatalError("override me")
-    }
-    
-    func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
-        fatalError("override me")
-    }
-    
     func get<T>(_ identifier: String) throws -> T? {
         fatalError("override me")
     }
     
     func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
-        fatalError("override me")
-    }
-    
-    func get<T>(_ identifier: String, type: T.Type) throws -> T? {
-        fatalError("override me")
-    }
-    
-    func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
         fatalError("override me")
     }
     
@@ -128,6 +112,10 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
+    func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+        fatalError("override me")
+    }
+    
 }
 
 final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _AnyTypedPersistenceStoreBase<Base.PersistableType> {
@@ -165,28 +153,12 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         try self.base.delete(item, completion: completion)
     }
     
-    override func delete<T>(_ identifier: String, type: T.Type) throws {
-        try self.base.delete(identifier, type: type)
-    }
-    
-    override func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
-        try self.base.delete(identifier, type: type, completion: completion)
-    }
-    
     override func get<T>(_ identifier: String) throws -> T? {
         return try self.base.get(identifier)
     }
     
     override func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
         try self.base.get(identifier,completion: completion)
-    }
-    
-    override func get<T>(_ identifier: String, type: T.Type) throws -> T? {
-        return try self.base.get(identifier, type: type)
-    }
-    
-    override func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
-        try self.base.get(identifier, type: type, completion: completion)
     }
     
     override func getAll<T>(_ type: T.Type) throws -> [T]  {
@@ -221,6 +193,7 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         return try self.base.exists(item, completion: completion)
     }
     
+    
     override func exists(_ identifier : String,type : Any.Type) throws -> Bool {
         return try self.base.exists(identifier,type: type)
     }
@@ -251,6 +224,11 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         _ key2: String,
         _ object2: T) -> ComparisonResult)) throws {
         try self.base.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
+    }
+    
+    
+    override func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+        try self.base.transaction(transaction: transaction)
     }
     
 }
@@ -296,28 +274,12 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         try self.box.delete(item, completion: completion)
     }
     
-    public func delete<T>(_ identifier: String, type: T.Type) throws {
-        try self.box.delete(identifier, type: type)
-    }
-    
-    public func delete<T>(_ identifier: String, type: T.Type, completion: @escaping () -> ()) throws {
-        try self.box.delete(identifier, type: type, completion: completion)
-    }
-    
     public func get<T>(_ identifier: String) throws -> T? {
         return try self.box.get(identifier)
     }
     
     public func get<T>(_ identifier: String, completion: @escaping (_ item: T?) -> Void ) throws  {
         try self.box.get(identifier,completion: completion)
-    }
-    
-    public func get<T>(_ identifier: String, type: T.Type) throws -> T? {
-        return try self.box.get(identifier, type: type)
-    }
-    
-    public func get<T>(_ identifier: String, type: T.Type, completion: @escaping (_ item: T?) -> Void ) throws {
-        try self.box.get(identifier, type: type, completion: completion)
     }
     
     public func getAll<T>(_ type: T.Type) throws -> [T]  {
@@ -364,7 +326,6 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         return try self.box.filter(type, includeElement: includeElement)
     }
     
-    
     public func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws {
         try self.box.filter(type, includeElement: includeElement, completion: completion)
     }
@@ -382,6 +343,10 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         _ key2: String,
         _ object2: T) -> ComparisonResult)) throws {
         try self.box.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
+    }
+    
+    public func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+        try self.box.transaction(transaction: transaction)
     }
     
 }

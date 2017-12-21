@@ -85,12 +85,3 @@ public protocol PersistenceStoreProtocol {
     
 }
 
-extension PersistenceStoreProtocol{
-    
-    func version() -> Int {
-        return 0
-    }
-    
-}
-
-
