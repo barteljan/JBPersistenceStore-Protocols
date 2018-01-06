@@ -84,6 +84,8 @@ public extension TypedPersistenceStoreProtocol {
         try self.get(identifier) { (item: T?) in
             if let item = item {
                 try! self.delete(item, completion: completion)
+            } else {
+                completion()
             }
         }
     }
