@@ -178,11 +178,11 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
     }
     
     override func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
-        return try self.getAll(viewName,groupName:groupName)
+        return try self.base.getAll(viewName,groupName:groupName)
     }
     
     override func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
-        try getAll(viewName, groupName: groupName, completion: completion)
+        try self.base.getAll(viewName, groupName: groupName, completion: completion)
     }
     
     override func exists(_ item : Any!) throws -> Bool {
@@ -299,11 +299,11 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
     }
     
     public func getAll<T>(_ viewName:String,groupName:String) throws ->[T] {
-        return try self.getAll(viewName,groupName:groupName)
+        return try self.box.getAll(viewName,groupName:groupName)
     }
     
     public func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws {
-        try getAll(viewName, groupName: groupName, completion: completion)
+        try self.box.getAll(viewName, groupName: groupName, completion: completion)
     }
     
     public func exists(_ item : Any!) throws -> Bool {
