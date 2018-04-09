@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import VISPER_Entity
 
-public protocol CanBeIdentifiedProtocol{
+public protocol CanBeIdentifiedProtocol: CanBeIdentified {
     func identifier()->String
 }

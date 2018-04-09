@@ -7,17 +7,16 @@
 //
 
 import Foundation
+import VISPER_Entity
 
-
-
-public protocol TypedPersistenceStoreProtocol {
+public protocol TypedPersistenceStoreProtocol: EntityStore {
     
     associatedtype PersistableType
     
     func version() -> Int
     
-    func isResponsible(for object: Any) -> Bool
-    func isResponsible(forType type: Any.Type) -> Bool
+    func isResponsible<T>(for object: T) -> Bool
+    func isResponsible<T>(forType type: T.Type) -> Bool
 
     func persist<T>(_ item: T!) throws
     func persist<T>(_ item: T!,completion: @escaping () -> ()) throws
@@ -37,12 +36,12 @@ public protocol TypedPersistenceStoreProtocol {
     func getAll<T>(_ viewName:String,groupName:String) throws ->[T]
     func getAll<T>(_ viewName:String,groupName:String, completion: @escaping (_ items: [T]) -> Void) throws
     
-    func exists(_ item : Any!) throws -> Bool
-    func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws
+    func exists<T>(_ item : T!) throws -> Bool
+    func exists<T>(_ item : T!, completion: @escaping (_ exists: Bool) -> Void) throws
     
     
-    func exists(_ identifier : String,type : Any.Type) throws -> Bool
-    func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws
+    func exists<T>(_ identifier: String,type: T.Type) throws -> Bool
+    func exists<T>(_ identifier: String,type: T.Type,  completion: @escaping (_ exists: Bool) -> Void) throws
     
     func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool) throws -> [T]
     func filter<T>(_ type: T.Type, includeElement: @escaping (T) -> Bool, completion: @escaping (_ items: [T]) -> Void) throws
@@ -61,7 +60,7 @@ public protocol TypedPersistenceStoreProtocol {
         _ object2: T) -> ComparisonResult)) throws
     
     
-    func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws
+    func transaction(transaction: @escaping (_ transactionStore: EntityStore) throws -> Void) throws
     
 }
 
@@ -71,11 +70,11 @@ public extension TypedPersistenceStoreProtocol {
         return 0;
     }
     
-    public func isResponsible(for object: Any) -> Bool{
+    public func isResponsible<T>(for object: T) -> Bool{
         return object is PersistableType
     }
     
-    func isResponsible(forType type: Any.Type) -> Bool{
+    func isResponsible<T>(forType type: T.Type) -> Bool{
         let isType = type.self is PersistableType
         return isType
     }

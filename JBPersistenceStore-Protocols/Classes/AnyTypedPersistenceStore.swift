@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import VISPER_Entity
 
 class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtocol{
     
@@ -72,19 +73,19 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
-    func exists(_ item : Any!) throws -> Bool {
+    func exists<T>(_ item : T!) throws -> Bool {
         fatalError("override me")
     }
     
-    func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws{
+    func exists<T>(_ item : T!, completion: @escaping (_ exists: Bool) -> Void) throws{
         fatalError("override me")
     }
     
-    func exists(_ identifier : String,type : Any.Type) throws -> Bool {
+    func exists<T>(_ identifier : String,type : T.Type) throws -> Bool {
         fatalError("override me")
     }
     
-    func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
+    func exists<T>(_ identifier : String,type : T.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
         fatalError("override me")
     }
     
@@ -112,7 +113,7 @@ class _AnyTypedPersistenceStoreBase<PersistedType> : TypedPersistenceStoreProtoc
         fatalError("override me")
     }
     
-    func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+    func transaction(transaction: @escaping (_ transactionStore: EntityStore) throws -> Void) throws {
         fatalError("override me")
     }
     
@@ -124,11 +125,11 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
     
     init(_ base: Base) { self.base = base }
     
-    func isResponsible(for object: Any) -> Bool{
+    func isResponsible<T>(for object: T) -> Bool{
         return self.base.isResponsible(for: object)
     }
     
-    func isResponsible(forType type: Any.Type) -> Bool{
+    func isResponsible<T>(forType type: T.Type) -> Bool{
         return self.base.isResponsible(forType: type)
     }
     
@@ -185,20 +186,20 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
         try self.base.getAll(viewName, groupName: groupName, completion: completion)
     }
     
-    override func exists(_ item : Any!) throws -> Bool {
+    override func exists<T>(_ item : T!) throws -> Bool {
         return try self.base.exists(item)
     }
     
-    override func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws {
+    override func exists<T>(_ item : T!, completion: @escaping (_ exists: Bool) -> Void) throws {
         return try self.base.exists(item, completion: completion)
     }
     
     
-    override func exists(_ identifier : String,type : Any.Type) throws -> Bool {
+    override func exists<T>(_ identifier : String,type : T.Type) throws -> Bool {
         return try self.base.exists(identifier,type: type)
     }
     
-    override func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
+    override func exists<T>(_ identifier : String,type : T.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
         try self.base.exists(identifier, type: type, completion: completion)
     }
     
@@ -227,7 +228,7 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
     }
     
     
-    override func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+    override func transaction(transaction: @escaping (_ transactionStore: EntityStore) throws -> Void) throws {
         try self.base.transaction(transaction: transaction)
     }
     
@@ -235,7 +236,7 @@ final class _AnyTypedPersistenceStoreBox<Base: TypedPersistenceStoreProtocol>: _
 
 
 
-open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtocol{
+open class AnyTypedPersistenceStore<PersistedType>: TypedPersistenceStoreProtocol{
     
     private let box: _AnyTypedPersistenceStoreBase<PersistedType>
     
@@ -245,11 +246,11 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         box = _AnyTypedPersistenceStoreBox(base)
     }
     
-    public func isResponsible(for object: Any) -> Bool{
+    public func isResponsible<T>(for object: T) -> Bool{
         return self.box.isResponsible(for: object)
     }
     
-    public func isResponsible(forType type: Any.Type) -> Bool{
+    public func isResponsible<T>(forType type: T.Type) -> Bool{
         return self.box.isResponsible(forType: type)
     }
     
@@ -306,19 +307,19 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         try self.box.getAll(viewName, groupName: groupName, completion: completion)
     }
     
-    public func exists(_ item : Any!) throws -> Bool {
+    public func exists<T>(_ item : T!) throws -> Bool {
         return try self.box.exists(item)
     }
     
-    public func exists(_ item : Any!, completion: @escaping (_ exists: Bool) -> Void) throws {
+    public func exists<T>(_ item : T!, completion: @escaping (_ exists: Bool) -> Void) throws {
         return try self.box.exists(item, completion: completion)
     }
     
-    public func exists(_ identifier : String,type : Any.Type) throws -> Bool {
+    public func exists<T>(_ identifier : String,type : T.Type) throws -> Bool {
         return try self.box.exists(identifier,type: type)
     }
     
-    public func exists(_ identifier : String,type : Any.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
+    public func exists<T>(_ identifier : String,type : T.Type,  completion: @escaping (_ exists: Bool) -> Void) throws{
         try self.box.exists(identifier, type: type, completion: completion)
     }
     
@@ -345,7 +346,7 @@ open class AnyTypedPersistenceStore<PersistedType> : TypedPersistenceStoreProtoc
         try self.box.addView(viewName, groupingBlock: groupingBlock, sortingBlock: sortingBlock)
     }
     
-    public func transaction(transaction: @escaping (_ transactionStore: AnyTypedPersistenceStore<PersistableType>) throws -> Void) throws {
+    public func transaction(transaction: @escaping (_ transactionStore: EntityStore) throws -> Void) throws {
         try self.box.transaction(transaction: transaction)
     }
     

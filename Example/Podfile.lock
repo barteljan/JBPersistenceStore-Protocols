@@ -1,16 +1,16 @@
 PODS:
-  - JBPersistenceStore-Protocols (1.0.0)
+  - JBPersistenceStore-Protocols (2.1.2)
 
 DEPENDENCIES:
   - JBPersistenceStore-Protocols (from `../`)
 
 EXTERNAL SOURCES:
   JBPersistenceStore-Protocols:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  JBPersistenceStore-Protocols: f4bf3b77fb4ce251e92faf54dbae1e1dfdc3167f
+  JBPersistenceStore-Protocols: 8a8d2ef28dbce211f54291367acc34af12077afd
 
 PODFILE CHECKSUM: c5a4f560204cb4f32ed54daef7e8fcf34fde1b3b
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.4.0
