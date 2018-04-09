@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JBPersistenceStore-Protocols"
-  s.version          = "3.0.0"
+  s.version          = "3.0.1"
   s.summary          = "Protocols for a persistence store used as a facade for your favorite persistence library"
 
   s.description      = <<-DESC
@@ -19,5 +19,5 @@ Protocols for a persistence store used as a facade for your favorite persistence
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'JBPersistenceStore-Protocols/Classes/**/*'
-  s.dependency 'VISPER-Entity', '~> 1.0.0'
+  s.dependency 'VISPER-Entity', '~> 1.1.0'
 end
