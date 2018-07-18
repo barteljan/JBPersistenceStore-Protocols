@@ -171,7 +171,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				AF384F155496C19D2EAD9842 /* [CP] Embed Pods Frameworks */,
-				C54CACC2DD3C8EFAC233E823 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,7 +190,6 @@
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
 				86603C982B7178ACDD1CB1A0 /* [CP] Embed Pods Frameworks */,
-				E310667294410DD49D4F1D26 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -310,10 +308,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JBPersistenceStore-Protocols_Tests/Pods-JBPersistenceStore-Protocols_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JBPersistenceStore-Protocols/JBPersistenceStore_Protocols.framework",
+				"${BUILT_PRODUCTS_DIR}/VISPER-Entity/VISPER_Entity.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JBPersistenceStore_Protocols.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VISPER_Entity.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -328,44 +328,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JBPersistenceStore-Protocols_Example/Pods-JBPersistenceStore-Protocols_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JBPersistenceStore-Protocols/JBPersistenceStore_Protocols.framework",
+				"${BUILT_PRODUCTS_DIR}/VISPER-Entity/VISPER_Entity.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JBPersistenceStore_Protocols.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VISPER_Entity.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JBPersistenceStore-Protocols_Example/Pods-JBPersistenceStore-Protocols_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C54CACC2DD3C8EFAC233E823 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JBPersistenceStore-Protocols_Example/Pods-JBPersistenceStore-Protocols_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E310667294410DD49D4F1D26 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JBPersistenceStore-Protocols_Tests/Pods-JBPersistenceStore-Protocols_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

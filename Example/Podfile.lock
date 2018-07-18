@@ -1,16 +1,23 @@
 PODS:
-  - JBPersistenceStore-Protocols (2.1.2)
+  - JBPersistenceStore-Protocols (3.0.1):
+    - VISPER-Entity (~> 3.0.0)
+  - VISPER-Entity (3.0.0)
 
 DEPENDENCIES:
   - JBPersistenceStore-Protocols (from `../`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - VISPER-Entity
+
 EXTERNAL SOURCES:
   JBPersistenceStore-Protocols:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  JBPersistenceStore-Protocols: 8a8d2ef28dbce211f54291367acc34af12077afd
+  JBPersistenceStore-Protocols: 55d0a2de68c82c65a54f9a4dbff0f68c57dd37ad
+  VISPER-Entity: 9d6f2564bc43a86d2d910e6ee42b6fbd3d88f01b
 
 PODFILE CHECKSUM: c5a4f560204cb4f32ed54daef7e8fcf34fde1b3b
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
