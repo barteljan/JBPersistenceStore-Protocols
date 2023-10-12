@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JBPersistenceStore-Protocols"
-  s.version          = "6.0.0"
+  s.version          = "6.0.1"
   s.summary          = "Protocols for a persistence store used as a facade for your favorite persistence library"
 
   s.description      = <<-DESC
@@ -16,7 +16,7 @@ Protocols for a persistence store used as a facade for your favorite persistence
   s.pod_target_xcconfig = { 'WARNING_CFLAGS' => '-Wdeprecated-declarations' }
 
 
-  s.ios.deployment_target = '138.0'
+  s.ios.deployment_target = '13.0'
   s.swift_version = '4.2'
 
   s.source_files = 'JBPersistenceStore-Protocols/Classes/**/*'
